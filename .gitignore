@@ -1,0 +1,22 @@
+# Eclipse
+.classpath
+.project
+.wtpmodules
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+
+# Dependencies
+lib/

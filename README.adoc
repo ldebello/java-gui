@@ -1,0 +1,83 @@
+= GUI (Graphical User Interface)
+
+La idea de este repositorio es tener algunos ejemplos sobre distintos frameworks que forman parte de Java para la parte de UI Desktop y ademas mencionar y explicar algunos patrones de diseño asociados a la interfaz grafica.
+
+== AWT (1995)
+
+AWT (Abstract Window Toolkit) depende de los controles de UI nativos en el host (native peers). Cada componente en AWT, tiene su equivalente en el host nativo. Esto significa que AWT utilizamente directamente los controles provistos por el host y depende totalmente de que este se encuentre disponible. Esta es la razon por la cual es llamado _Heavyweight components library_. Dado que no todos los host soportan todos los controles de UI, Sun decidio proveer el menor comun denominador de todos los controles de UI disponible en todos los hosts. Esto quiere decir que la cantidad de componentes de AWT es limitada y le faltan componentes como Tree, Table, etc. Si alguna aplicacion necesita alguno de estos debe implementarlo desde cero. Eso es una tarea muy grande para componentes que son comunmente requeridos.
+
+Pros:
+
+* Es un toolkit muy estable.
+* Es thread safe, lo cual quiere decir que puede trabajar bien en un ambiente multi-threading.
+* Hace dispose de los controles automaticamente, por lo cual la aplicacion no tiene que preocuparse de esto.
+* La UI puede ser en cualquier forma ya ase bottom up o top down, podemos empezar desde componentes padres a los hijos o al reves; en cualquier orden en realidad.
+
+Cons:
+
+* El look and feel de los componentes depende del host por lo cual no podemos asegurar una misma experiencia cross platform. Por lo tanto va en contra del slogan de Java "Write once, run anywhere" (WORA).
+* Una lista de componentes muy limitada.
+* No provee soporte de accesibilidad.
+* AWT es thread safe, pero ese feature viene con un costo de performance ya que el acceso debe ser sincronizado.
+
+== Swing (1997)
+
+Swing aparecio luego de AWT con la idea era eliminar los inconvenientes de AWT tanto como fuera posible y ademas hacerlo mas extensible y llena de features. Swing esta construido utilizando las bases de AWT; como su modelo de eventos y clases básicas. Pero es mucho más avanzado en cuanto a diseño, funciones enriquecidas y conceptos de renderizado.
+Swing provee a _lightweight components library_ ya que sus componentes estan definidos en Java y se tiene control completo en sus feautres asi como en su rendering. Esto elimina la dependencia con los componentes del sistema host.
+
+Pros:
+
+* Una libreria de componentes liviano desarrollado en Java. Los controles del host son solo utilizados para top level containers como JFrame, Window etc.
+* Soporta la idea de WORA, lo cual permite una experiencia similar en todas las plataformas.
+* Una gran variedad de componentes con features avanzados.
+* Un diseño robusto.
+* División de estructura de los componentes en modelo, vista y controlador. Ahora un modelo puede soportar múltiples vistas.
+* Un buen soporte de accesibilidad.
+* Introduccion del concepto de render y editores para varios componentes como Tree, Table, etc. Los render y editores pueden ser sobreescritos para proveer customizaciones. Ademas mejorar la performance usando el patron flyweight.
+
+Cons:
+
+* Swing no es thread safe. Por lo tanto los desarrolladores tienen que estar atentos cuando estan en un ambiente multi-threading para no llamar metodos de Swing desde otros hilo que no sean el Event Dispatcher Thread. Si esto no es realizado el comportamiento de la UI podria ser inpredecible ya que multiples threads estarian actualizando la UI.
+** Este diseño es intencional para mejorar la performance. Thread safety es posible pero con un costo de performance, por lo cual Swing removio esto y cambio el diseño para trabajar en modo single thread. Sin embardo, es posible implementar tareas pesadas en otros hilos y luego integrar los resultados en la UI con distintos utilitarios.
+* Dado que swing no usa los controles nativos, no puede sacar ventajas de optimizaciones a nivel de host como aceleración gráfica de hardware, etc.
+
+== SWT (2003)
+
+SWT (Standard Widget Toolkit) fue diseñado con la intencion de usar lo mejor de los dos mundos i.e. AWT y Swing. SWT usa controles nativos para todos los componentes disponibles en el host, de este modo obtiene la mejora de performance de estos. Si el componente no esta disponible SWT provee componentes emulados, sin embargo dado que los hosts han evolucionado la mayoria de los componentes esta presente de forma nativa. La diferencia entre AWT y SWT es que los AWT peers (Wrappers de los controles host) también proporcionan alguna funcionalidad adicional cuando es necesario, pero en SWT son solo wrappers de los controles del host.
+SWT fue creado por la gente de IBM para ser utilizado en Eclipse.
+
+Pros:
+
+* Toma las ventajas de ambos toolkits al combinar AWT y Swing usando componentes nativos cuando es posible (Lo cual ayuda a la perfroamnce) y brindando componentes emulados para el resto.
+* Bien integrado con Eclipse.
+
+Cons:
+
+* SWT no viene con el paquete standard de Java y tiene que ser instalado de forma separada.
+* No soporta dispose automatico de componentes como AWT y Swing, por lo cual es responsabilidad de los developers hacer dispose de los componentes.
+* El render y modeling de algunos componentes en SWT como Tree y Table son complicados de comprender e implementar.
+* SWT tiene varias librerias como GEF o Draw2D para soportar operaciones de drawing avanzado, pero no sus APIs no son tan buenas como Java 2D y 3D.
+* La gran mayoria de los componentes de SWT reciben un parametro llamado style en su constructor lo cual genera una ambiente muy rigido ya que no podemos cambiarlo luego.
+* Dado que mayormente son wrappers de host nativos es muy dificil leer el codigo y poder aprender en base a los componentes.
+
+== JavaFX (2008)
+
+JavaFX aparece como reemplazo a Swing como el toolkit de GUI recomendado para Java. Además, JavaFX es más consistente en su diseño que Swing, y tiene más características. También es más moderno, lo que le permite diseñar GUI utilizando archivos de diseño (XML) y personalizarlos con CSS, al igual que se acostumbra en aplicaciones web. JavaFX también integra gráficos 2D + 3D, gráficos, audio, video y aplicaciones web integradas en un conjunto de herramientas GUI coherente.
+
+*Note:* A partir de Java 11, JavaFX fue removido del Java SDK y es un proyecto open source en si mismo, lo cual significa que lo necesitamos bajar de forma adicional, el sitio esta en este http://openjfx.io[link]
+
+Pros:
+
+* Un API mas simple y limpia.
+* Styling con CSS.
+* Soporte para animaciones incluido.
+* Un muy buen sistema de bindings.
+* Media support (e.g. Video player).
+
+Cons:
+
+* Llegada tardia al ecosistema de Java.
+
+References
+
+https://www.vedantatree.com/2013/01/awt-vs-swing-vs-swt.html
