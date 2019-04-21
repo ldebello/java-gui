@@ -3,12 +3,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
 <HBox xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="ar.com.javacuriosities.basics.BasicController"
-    spacing="20"
-    alignment="CENTER">
-    <Label text="User Name:"/>
+      fx:controller="ar.com.javacuriosities.utils.BasicController"
+      spacing="20"
+      alignment="CENTER">
+    <Label text="Message:"/>
     <TextField fx:id="message"/>
     <Label text="${message.text}"/>
+    <Button fx:id="button" text="Click me!" onAction="#buttonClicked" disable="${message.text.empty}"/>
 </HBox>
