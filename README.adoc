@@ -78,6 +78,10 @@ Cons:
 
 * Llegada tardia al ecosistema de Java.
 
+= Design Patterns
+
+A la hora de construir una UI nos encontramos con un problema muy tipico sobre como organizar nuestro codigo y que entidades deben comunicarse para lograr algo simple y mantenible, por eso hay algunos patrones tipicos, podemos encontrar una explicacion sobre ellos en el siguiente link:MVW.adoc[documento]
+
 References
 
 https://www.vedantatree.com/2013/01/awt-vs-swing-vs-swt.html
