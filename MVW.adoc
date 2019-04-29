@@ -1,6 +1,6 @@
 = MVW (Model-View-Whatever)
 
-Hay algunos patrones muy tipicos a la hora de desarrollar una UI, pero es muy dificil encontrar una explicacion clara sobre cada uno de ellos, por eso voy a intentar escribir mi propia explicacion de cada uno.
+Hay algunos patrones muy tipicos a la hora de desarrollar una UI, pero es muy dificil encontrar una explicacion clara sobre cada uno de ellos, por eso vamos a intentar explicar cada uno y agrega un proyecto con ejemplos.
 
 * MVC (Model - View - Controller)
 * MVP (Model - View - Presenter)
