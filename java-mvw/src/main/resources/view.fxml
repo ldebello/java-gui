@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<HBox xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="ar.com.javacuriosities.mvvm.Controller"
+      spacing="20"
+      alignment="CENTER">
+    <Label text="Counter:"/>
+    <TextField fx:id="message"/>
+    <Button fx:id="button" text="Press Me" onAction="#buttonClicked"/>
+</HBox>
